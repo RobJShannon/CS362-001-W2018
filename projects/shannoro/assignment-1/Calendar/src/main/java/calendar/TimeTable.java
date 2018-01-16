@@ -36,7 +36,8 @@ public class TimeTable {
 
 	        
 	        //Make sure that the first day is before the last day
-	        if (!firstDay.before(lastDay)) {
+		//Removing the NOT operator will always throw an exception for correct values and never for correct values
+	        if (firstDay.before(lastDay)) {
 	        	throw new DateOutOfRangeException ("Second date specified is not  before the first date specified.");
 	        }
 	        
