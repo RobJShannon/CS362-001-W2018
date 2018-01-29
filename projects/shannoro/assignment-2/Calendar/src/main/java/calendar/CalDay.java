@@ -73,7 +73,9 @@ public class CalDay {
 	public void addAppt(Appt appt) {
 		if (appt.getValid()) {
 			//Will loop one too many times
-			for (int i = 0; i <= getAppts().size(); i++) {
+			//for (int i = 0; i < getAppts().size(); i++) {
+			//mvn test catches this error and won't report coverage if I don't resolve it
+			for (int i = 0; i < getAppts().size(); i++) {
 				//Put the appointment in the correct order - finish this
 				if (((Appt)getAppts().get(i)).getStartHour() >
 										appt.getStartHour()) {
