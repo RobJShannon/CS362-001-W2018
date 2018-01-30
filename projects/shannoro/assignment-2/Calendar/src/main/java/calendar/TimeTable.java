@@ -36,8 +36,9 @@ public class TimeTable {
 
 	        
 	        //Make sure that the first day is before the last day
-			//Throws exception when dates are in the appropriate order and not when they are out of order
-	        if (firstDay.before(lastDay)) {
+			//Removed the ! so will erroneously throw exception when dates are in the correct order and never when they are in the correct order. 
+	        //if (firstDay.before(lastDay)) { //This is the erroneous version
+			if (!firstDay.before(lastDay)) { //This is the original statement
 	        	throw new DateOutOfRangeException ("Second date specified is not before the first date specified.");
 	        }
 	        
@@ -109,25 +110,25 @@ public class TimeTable {
 	        
 	            
 
-	            //Make sure that there is a limited number of recurrences
-	            for (int i = 0; i < appt.getRecurNumber()+1; i++) {
-	                
-	                //Add the day of occurrence to the list if it is after the first day
-	                if (!occurrenceDay.before(firstDay)) {
-	                    result.add(occurrenceDay);
-	                }
-	                
-	                //Calculate the next recurrence day
-	                occurrenceDay = getNextApptOccurrence(appt, occurrenceDay);
-	                if (occurrenceDay == null) {
-	                    break;
-	                }
-	                            
-	                //Keep cycling while the occurence day is in range
-	                if (!occurrenceDay.before(lastDay)) {
-	                    break;
-	                }
-	            }        
+	        //Make sure that there is a limited number of recurrences
+	        for (int i = 0; i < appt.getRecurNumber()+1; i++) {
+	               
+	            //Add the day of occurrence to the list if it is after the first day
+	            if (!occurrenceDay.before(firstDay)) {
+	                result.add(occurrenceDay);
+	            }
+	            
+	            //Calculate the next recurrence day
+	            occurrenceDay = getNextApptOccurrence(appt, occurrenceDay);
+	            if (occurrenceDay == null) {
+	                break;
+	            }
+	                           
+	            //Keep cycling while the occurence day is in range
+	            if (!occurrenceDay.before(lastDay)) {
+	                break;
+	            }
+	        }        
 	        return result;
 	    }
 	    /**
@@ -202,13 +203,18 @@ public class TimeTable {
 	        if(appts==null||appt==null)
         		return null;
 	    	//Do not do anything to invalid appointments
+			//Can't assess this statement because of the bug I introduced
+			//The bug prevents appointments from ever being set as invalid, thus it's impossible for this statement to execute
 	        if (!appt.getValid()) {
 	            return null;
 	        }
 
 	        //Remove the appointment from the list appts if applicable
-	        
-	        for(int i=1;i<appts.size()-1;i++){
+	        //I believe the old loop condition was erroneous
+			//for(int i=1;i<appts.size()-1;i++){
+			//The old version of the for loop would never execute if there was only one appointment in the list
+			//It would also miss removing some appointments
+	        for(int i=0;i<appts.size();i++){
 	        	Appt tempAppt=appts.get(i);
 	        	if(tempAppt.equals(appt)){
 	        		appts.remove(i);

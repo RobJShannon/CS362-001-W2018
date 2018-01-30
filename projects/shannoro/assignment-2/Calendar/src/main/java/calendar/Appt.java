@@ -111,9 +111,12 @@ public class Appt implements  Comparable<Appt>{
      */
     private void isValid() {
     	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);
-		/**Accidentally ANDing the checks instead of ORing them will allow invalid values to pass.*/
+		/**Accidentally ANDing the checks instead of ORing them will allow invalid values to pass.
+		This one symptom of this error is that none of these if statements will be covered in branch
+		testing. The combination of a proper test suite and observation of testing results (i.e. using jacoco)
+		should reveal this issue.*/
     				
-    	if(startHour<0 && startHour>23)
+    /*	if(startHour<0 && startHour>23)
     		this.valid=false;
     	else
         	if(startMinute<0 && startMinute>59)
@@ -123,6 +126,21 @@ public class Appt implements  Comparable<Appt>{
             		this.valid=false;
             	else
                 	if(startMonth<1 && startMonth>12)
+                		this.valid=false;
+                	else
+                		this.valid=true; */
+					
+		//"resolved" the bug I introduced to see if my test code could achieve 80%+ coverage
+		if(startHour<0 || startHour>23)
+    		this.valid=false;
+    	else
+        	if(startMinute<0 || startMinute>59)
+        		this.valid=false;
+        	else
+            	if(startDay<1 || startDay>NumDaysInMonth)
+            		this.valid=false;
+            	else
+                	if(startMonth<1 || startMonth>12)
                 		this.valid=false;
                 	else
                 		this.valid=true;
@@ -278,7 +296,7 @@ public class Appt implements  Comparable<Appt>{
      * @return a printable representation of this appointment
      */
     private String represntationApp(){
-		//Reverse AM and PM
+		//Introduced bug that will reverse AM and PM
         String half = (getStartHour() < 11) ? "pm" : "am";
         int printableHour = getStartHour();
         if (printableHour > 11)

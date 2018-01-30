@@ -75,7 +75,7 @@ public class CalDayTest {
 		assertFalse(day.toString() == "");
 		assertFalse(day.iterator() == null);
 		
-		CalDay day2 = new CalDay(null);
+		//CalDay day2 = new CalDay(null);
 	 }
 //add more unit tests as you needed	
 }
