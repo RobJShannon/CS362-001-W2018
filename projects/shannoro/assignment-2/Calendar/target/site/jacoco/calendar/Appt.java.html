@@ -111,162 +111,180 @@ public class Appt implements  Comparable&lt;Appt&gt;{
      */
     private void isValid() {
 <span class="fc" id="L113">    	int NumDaysInMonth= CalendarUtil.NumDaysInMonth(startYear,startMonth-1);</span>
-		/**Accidentally ANDing the checks instead of ORing them will allow invalid values to pass.*/
+		/**Accidentally ANDing the checks instead of ORing them will allow invalid values to pass.
+		This one symptom of this error is that none of these if statements will be covered in branch
+		testing. The combination of a proper test suite and observation of testing results (i.e. using jacoco)
+		should reveal this issue.*/
     				
-<span class="pc bpc" id="L116" title="3 of 4 branches missed.">    	if(startHour&lt;0 &amp;&amp; startHour&gt;23)</span>
-<span class="nc" id="L117">    		this.valid=false;</span>
+    /*	if(startHour&lt;0 &amp;&amp; startHour&gt;23)
+    		this.valid=false;
     	else
-<span class="pc bpc" id="L119" title="3 of 4 branches missed.">        	if(startMinute&lt;0 &amp;&amp; startMinute&gt;59)</span>
-<span class="nc" id="L120">        		this.valid=false;</span>
+        	if(startMinute&lt;0 &amp;&amp; startMinute&gt;59)
+        		this.valid=false;
         	else
-<span class="pc bpc" id="L122" title="3 of 4 branches missed.">            	if(startDay&lt;1 &amp;&amp; startDay&gt;NumDaysInMonth)</span>
-<span class="nc" id="L123">            		this.valid=false;</span>
+            	if(startDay&lt;1 &amp;&amp; startDay&gt;NumDaysInMonth)
+            		this.valid=false;
             	else
-<span class="pc bpc" id="L125" title="3 of 4 branches missed.">                	if(startMonth&lt;1 &amp;&amp; startMonth&gt;12)</span>
-<span class="nc" id="L126">                		this.valid=false;</span>
+                	if(startMonth&lt;1 &amp;&amp; startMonth&gt;12)
+                		this.valid=false;
                 	else
-<span class="fc" id="L128">                		this.valid=true;</span>
-<span class="fc" id="L129">    }</span>
+                		this.valid=true; */
+					
+		//&quot;resolved&quot; the bug I introduced to see if my test code could achieve 80%+ coverage
+<span class="pc bpc" id="L134" title="1 of 4 branches missed.">		if(startHour&lt;0 || startHour&gt;23)</span>
+<span class="fc" id="L135">    		this.valid=false;</span>
+    	else
+<span class="pc bpc" id="L137" title="1 of 4 branches missed.">        	if(startMinute&lt;0 || startMinute&gt;59)</span>
+<span class="fc" id="L138">        		this.valid=false;</span>
+        	else
+<span class="pc bpc" id="L140" title="1 of 4 branches missed.">            	if(startDay&lt;1 || startDay&gt;NumDaysInMonth)</span>
+<span class="fc" id="L141">            		this.valid=false;</span>
+            	else
+<span class="pc bpc" id="L143" title="2 of 4 branches missed.">                	if(startMonth&lt;1 || startMonth&gt;12)</span>
+<span class="nc" id="L144">                		this.valid=false;</span>
+                	else
+<span class="fc" id="L146">                		this.valid=true;</span>
+<span class="fc" id="L147">    }</span>
     
 
 
     /** Sets startHour */
     public void setStartHour(int startHour) {
-<span class="nc" id="L135">    	this.startHour = startHour;</span>
-<span class="nc" id="L136">    	 isValid();</span>
-<span class="nc" id="L137">    }</span>
+<span class="fc" id="L153">    	this.startHour = startHour;</span>
+<span class="fc" id="L154">    	 isValid();</span>
+<span class="fc" id="L155">    }</span>
     
     /** Sets startHour */
     public void setStartMinute(int startMinute) {   	
-<span class="nc" id="L141">        this.startMinute = startMinute;</span>
-<span class="nc" id="L142">        isValid();</span>
-<span class="nc" id="L143">    }</span>
+<span class="fc" id="L159">        this.startMinute = startMinute;</span>
+<span class="fc" id="L160">        isValid();</span>
+<span class="fc" id="L161">    }</span>
 
     /** Sets startDay */
     public void setStartDay(int startDay) {
-<span class="nc" id="L147">        this.startDay = startDay;</span>
-<span class="nc" id="L148">        isValid();</span>
-<span class="nc" id="L149">    }</span>
+<span class="fc" id="L165">        this.startDay = startDay;</span>
+<span class="fc" id="L166">        isValid();</span>
+<span class="fc" id="L167">    }</span>
     
     /** Sets startMonth */
     public void setStartMonth(int startMonth) {
-<span class="nc" id="L153">        this.startMonth = startMonth;</span>
-<span class="nc" id="L154">        isValid();</span>
-<span class="nc" id="L155">    }</span>
+<span class="fc" id="L171">        this.startMonth = startMonth;</span>
+<span class="fc" id="L172">        isValid();</span>
+<span class="fc" id="L173">    }</span>
     
     /** Sets startYear */
     public void setStartYear(int startYear) {
-<span class="nc" id="L159">        this.startYear = startYear;</span>
-<span class="nc" id="L160">        isValid();</span>
-<span class="nc" id="L161">    }</span>
+<span class="fc" id="L177">        this.startYear = startYear;</span>
+<span class="fc" id="L178">        isValid();</span>
+<span class="fc" id="L179">    }</span>
 
     /** Sets title */
     public void setTitle(String title) {
-<span class="pc bpc" id="L165" title="1 of 2 branches missed.">        if (title == null) </span>
-<span class="nc" id="L166">            this.title = &quot;&quot;;</span>
+<span class="fc bfc" id="L183" title="All 2 branches covered.">        if (title == null) </span>
+<span class="fc" id="L184">            this.title = &quot;&quot;;</span>
         else
-<span class="fc" id="L168">            this.title = title;</span>
-<span class="fc" id="L169">    }</span>
+<span class="fc" id="L186">            this.title = title;</span>
+<span class="fc" id="L187">    }</span>
     
     /** Sets description */
     public void setDescription(String description) {
-<span class="pc bpc" id="L173" title="1 of 2 branches missed.">        if (description == null)</span>
-<span class="nc" id="L174">            this.description = &quot;&quot;;</span>
+<span class="fc bfc" id="L191" title="All 2 branches covered.">        if (description == null)</span>
+<span class="fc" id="L192">            this.description = &quot;&quot;;</span>
         else
-<span class="fc" id="L176">            this.description = description;</span>
-<span class="fc" id="L177">    }</span>
+<span class="fc" id="L194">            this.description = description;</span>
+<span class="fc" id="L195">    }</span>
  
     
     /** Gets startHour */
     public int getStartHour() {
-<span class="fc" id="L182">        return startHour;</span>
+<span class="fc" id="L200">        return startHour;</span>
     }
     
     /** Gets startHour */
     public int getStartMinute() {
-<span class="fc" id="L187">        return startMinute;</span>
+<span class="fc" id="L205">        return startMinute;</span>
     }
     
     /** Gets startDay */
     public int getStartDay() {
-<span class="fc" id="L192">        return startDay;</span>
+<span class="fc" id="L210">        return startDay;</span>
     }
     
     /** Gets startMonth */
     public int getStartMonth() {
-<span class="fc" id="L197">        return startMonth;</span>
+<span class="fc" id="L215">        return startMonth;</span>
     }
     
     /** Gets startYear */
     public int getStartYear() {
-<span class="fc" id="L202">        return startYear;</span>
+<span class="fc" id="L220">        return startYear;</span>
     }
  
     /** Gets title */
     public String getTitle() {
-<span class="fc" id="L207">        return title;</span>
+<span class="fc" id="L225">        return title;</span>
     }
     
     /** Gets description */
     public String getDescription() {
-<span class="fc" id="L212">        return description;</span>
+<span class="fc" id="L230">        return description;</span>
     }
     /** Gets description */
     public boolean getValid() {
-<span class="fc" id="L216">        return this.valid;</span>
+<span class="fc" id="L234">        return this.valid;</span>
     }
     /**
      * Sets the recurring information with the correct information
      */
     public void setRecurrence(int[] recurDays, int recurBy, int recurIncrement, int recurNumber) {
-<span class="fc" id="L222">        setRecurDays(recurDays);</span>
-<span class="fc" id="L223">        setRecurBy(recurBy);</span>
-<span class="fc" id="L224">        setRecurIncrement(recurIncrement);</span>
-<span class="fc" id="L225">        setRecurNumber(recurNumber);</span>
-<span class="fc" id="L226">    }</span>
+<span class="fc" id="L240">        setRecurDays(recurDays);</span>
+<span class="fc" id="L241">        setRecurBy(recurBy);</span>
+<span class="fc" id="L242">        setRecurIncrement(recurIncrement);</span>
+<span class="fc" id="L243">        setRecurNumber(recurNumber);</span>
+<span class="fc" id="L244">    }</span>
     private void setRecurDays(int[] recurDays) {
-<span class="pc bpc" id="L228" title="1 of 2 branches missed.">        if (recurDays == null) {</span>
-<span class="nc" id="L229">            this.recurDays = new int[0];</span>
+<span class="pc bpc" id="L246" title="1 of 2 branches missed.">        if (recurDays == null) {</span>
+<span class="nc" id="L247">            this.recurDays = new int[0];</span>
         }
         else {
-<span class="fc" id="L232">            this.recurDays = recurDays;</span>
+<span class="fc" id="L250">            this.recurDays = recurDays;</span>
         }
-<span class="fc" id="L234">    }</span>
+<span class="fc" id="L252">    }</span>
     /** Sets recurBy */
     private void setRecurBy(int recurBy) {
-<span class="fc" id="L237">        this.recurBy = recurBy;</span>
-<span class="fc" id="L238">    }</span>
+<span class="fc" id="L255">        this.recurBy = recurBy;</span>
+<span class="fc" id="L256">    }</span>
     /** Sets recurIncrement */
     private void setRecurIncrement(int recurIncrement) {
-<span class="fc" id="L241">        this.recurIncrement = recurIncrement;</span>
-<span class="fc" id="L242">    }</span>
+<span class="fc" id="L259">        this.recurIncrement = recurIncrement;</span>
+<span class="fc" id="L260">    }</span>
     
     /** Sets recurNumber */
     private void setRecurNumber(int recurNumber) {
-<span class="fc" id="L246">        this.recurNumber = recurNumber;</span>
-<span class="fc" id="L247">    }</span>
+<span class="fc" id="L264">        this.recurNumber = recurNumber;</span>
+<span class="fc" id="L265">    }</span>
     /** Gets recurNumber */
     public int getRecurNumber() {
-<span class="nc" id="L250">        return recurNumber;</span>
+<span class="fc" id="L268">        return recurNumber;</span>
     }
     /** Gets recurBy */
     public int getRecurBy() {
-<span class="nc" id="L254">        return recurBy;</span>
+<span class="fc" id="L272">        return recurBy;</span>
     }
     /** Gets recurDays */
     public int[] getRecurDays() {
-<span class="nc" id="L258">        return recurDays;</span>
+<span class="fc" id="L276">        return recurDays;</span>
     }    
     /**
      * Checks to see if an appointment recurrs or not
      * @return True if the appointment does occur more than once
      */
     public boolean isRecurring() {
-<span class="nc bnc" id="L265" title="All 2 branches missed.">        return getRecurNumber() != RECUR_NUMBER_NEVER;</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">        return getRecurNumber() != RECUR_NUMBER_NEVER;</span>
     }
     /** Gets recurIncrement */
     public int getRecurIncrement() {
-<span class="nc" id="L269">        return recurIncrement;</span>
+<span class="fc" id="L287">        return recurIncrement;</span>
     }   
     // ----------------------------------------------------------
     /**
@@ -278,43 +296,43 @@ public class Appt implements  Comparable&lt;Appt&gt;{
      * @return a printable representation of this appointment
      */
     private String represntationApp(){
-		//Reverse AM and PM
-<span class="nc bnc" id="L282" title="All 2 branches missed.">        String half = (getStartHour() &lt; 11) ? &quot;pm&quot; : &quot;am&quot;;</span>
-<span class="nc" id="L283">        int printableHour = getStartHour();</span>
-<span class="nc bnc" id="L284" title="All 2 branches missed.">        if (printableHour &gt; 11)</span>
+		//Introduced bug that will reverse AM and PM
+<span class="fc bfc" id="L300" title="All 2 branches covered.">        String half = (getStartHour() &lt; 11) ? &quot;pm&quot; : &quot;am&quot;;</span>
+<span class="fc" id="L301">        int printableHour = getStartHour();</span>
+<span class="fc bfc" id="L302" title="All 2 branches covered.">        if (printableHour &gt; 11)</span>
         {
-<span class="nc" id="L286">            printableHour -= 12;</span>
+<span class="fc" id="L304">            printableHour -= 12;</span>
         }
-<span class="nc bnc" id="L288" title="All 2 branches missed.">        if (printableHour == 0)</span>
+<span class="fc bfc" id="L306" title="All 2 branches covered.">        if (printableHour == 0)</span>
         {
-<span class="nc" id="L290">            printableHour = 12;</span>
+<span class="fc" id="L308">            printableHour = 12;</span>
         }
-<span class="nc" id="L292">        String represntationApp= printableHour +&quot;:&quot;+ getStartMinute() + half;</span>
-<span class="nc" id="L293">        return represntationApp;</span>
+<span class="fc" id="L310">        String represntationApp= printableHour +&quot;:&quot;+ getStartMinute() + half;</span>
+<span class="fc" id="L311">        return represntationApp;</span>
     	
     }
     public String toString()
     {
-<span class="nc bnc" id="L298" title="All 2 branches missed.">		if (!getValid()) {</span>
-<span class="nc" id="L299">		    return null;</span>
+<span class="pc bpc" id="L316" title="1 of 2 branches missed.">		if (!getValid()) {</span>
+<span class="nc" id="L317">		    return null;</span>
 		}
-<span class="nc" id="L301">         String day= this.getStartMonth()+&quot;/&quot;+this.getStartDay()+&quot;/&quot;+this.getStartYear() + &quot; at &quot;;</span>
-<span class="nc" id="L302">        return &quot;\t&quot;+ day +  this.represntationApp()  + &quot; ,&quot; +  getTitle()+ &quot;, &quot;+  getDescription()+&quot;\n&quot;;</span>
+<span class="fc" id="L319">         String day= this.getStartMonth()+&quot;/&quot;+this.getStartDay()+&quot;/&quot;+this.getStartYear() + &quot; at &quot;;</span>
+<span class="fc" id="L320">        return &quot;\t&quot;+ day +  this.represntationApp()  + &quot; ,&quot; +  getTitle()+ &quot;, &quot;+  getDescription()+&quot;\n&quot;;</span>
     }
 
  //   The compareTo() method is hard to explain, in integer sorting, just remember
  //   startMinute+startHour+day+month+year is ascending order.
 	public int compareTo(Appt compareAppt) {
-<span class="nc" id="L308">		int startMinute=	this.startMinute - ((Appt) compareAppt).getStartMinute();</span>
-<span class="nc" id="L309">		int startHour=	this.startHour - ((Appt) compareAppt).getStartHour();</span>
-<span class="nc" id="L310">		int day = this.getStartDay()-((Appt) compareAppt).getStartDay();</span>
-<span class="nc" id="L311">		int month = this.startMonth -((Appt) compareAppt).getStartMonth();</span>
-<span class="nc" id="L312">		int year = this.startYear -((Appt) compareAppt).getStartYear();</span>
+<span class="fc" id="L326">		int startMinute=	this.startMinute - ((Appt) compareAppt).getStartMinute();</span>
+<span class="fc" id="L327">		int startHour=	this.startHour - ((Appt) compareAppt).getStartHour();</span>
+<span class="fc" id="L328">		int day = this.getStartDay()-((Appt) compareAppt).getStartDay();</span>
+<span class="fc" id="L329">		int month = this.startMonth -((Appt) compareAppt).getStartMonth();</span>
+<span class="fc" id="L330">		int year = this.startYear -((Appt) compareAppt).getStartYear();</span>
 
 
 		//ascending order
 
-<span class="nc" id="L317">		return startMinute+startHour+day+month+year;</span>
+<span class="fc" id="L335">		return startMinute+startHour+day+month+year;</span>
 
 	}
 
