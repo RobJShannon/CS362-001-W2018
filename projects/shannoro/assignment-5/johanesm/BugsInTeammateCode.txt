@@ -1,0 +1,29 @@
+BUG REPORT
+
+Bug ID: 1
+Location: CalDay.java line 174
+Symptoms:
+	toString() returns an empty string for invalid dates
+	toString() raises a NullPointerException for valid dates
+Cause: The result of the call to isValid() on line 174 is negated.
+Steps to Reproduce:
+	1) Construct an invalid CalDay.
+	2) Call the CalDay's toString() method.
+Version: Assignment-2
+Severity: High - The user will never be able to print the date as a string.
+Priority: Medium - This portion of code is necessary for debugging and an important feature, however, the overall program can function without it.
+
+
+Bug ID: 2
+Location: TimeTable.java line 39
+Symptoms: A DateOutOfRangeException is thrown when two dates are provided to getApptRange in the correct order.
+Cause: The result of firstDay.before(lastDay) is not negated on line 39
+Steps to Reproduce:
+	1) Create a TimeTable.
+	2) Create one or more valid Appts.
+	3) Add the Appts to a LinkedList.
+	4) Create two new GregorianCalendar days of different dates.
+	5) Call the TimeTable's getApptRange method with the linked list as the first argument and the two days as arguments two and three in chronological order.
+Version: Assignment-2
+Severity: High - getApptRange is completely dysfunctional.
+Priority: High - The method is a key feature in the program.
