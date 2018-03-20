@@ -110,7 +110,7 @@ public class UrlValidatorTest extends TestCase {
 		String[] illegalScheme = {"\0", "asdf"};
 		String[] legalAuthority = {"www.google.com", "www.facebook.com", "www.amazon.com", "222.145.12.11"};
 		String[] illegalAuthority = {"\0", "asdf.asdf.asdf", "111.200.3.45.56.62.117"};
-		String[] legalPath = {"", "/thisisvalid"};//, "/valid1/valid2/valid3"};
+		String[] legalPath = {"", "/thisisvalid", "/valid1/valid2/valid3"};
 		String[] illegalPath = {"/../../..#/#/.."};
 		
 		String url = "";
@@ -123,10 +123,36 @@ public class UrlValidatorTest extends TestCase {
 					assertTrue(validator.isValid(url));
 				}
 			}
-			
+		}
+		
+		for( int i = 0; i < legalScheme.length; i++){
+			for(int j = 0; j < legalAuthority.length; j++){
+				for(int k = 0; k < illegalPath.length; k++){
+					url = legalScheme[i] + legalAuthority[j] + illegalPath[k];
+					System.out.println("Testing: " + url);
+					assertFalse(validator.isValid(url));
+				}
+			}
+		}
+		
+		for( int i = 0; i < legalScheme.length; i++){
+			for(int j = 0; j < illegalAuthority.length; j++){
+				for(int k = 0; k < legalPath.length; k++){
+					url = legalScheme[i] + illegalAuthority[j] + legalPath[k];
+					System.out.println("Testing: " + url);
+					assertFalse(validator.isValid(url));
+				}
+			}
+		}
+		
+		for( int i = 0; i < illegalScheme.length; i++){
+			for(int j = 0; j < legalAuthority.length; j++){
+				for(int k = 0; k < legalPath.length; k++){
+					url = illegalScheme[i] + legalAuthority[j] + legalPath[k];
+					System.out.println("Testing: " + url);
+					assertFalse(validator.isValid(url));
+				}
+			}
 		}
    }
-   
-
-
 }
